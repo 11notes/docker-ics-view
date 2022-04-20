@@ -1,6 +1,8 @@
 # docker-ics-view
 View *.ics feeds from your favorite sources directly online on a simple web UI.
 
+![Calendar View](screenshots/default.json.png?raw=true "Calendar View (default.json)")
+
 ## Volumes
 * /ics/static/etc - Purpose: Configuration files for different calendar views
 
@@ -19,6 +21,7 @@ You can place different configuration json files in /ics/static/etc and use the 
 ```shell
 http://localhost:8080/?config=~/default.json
 http://localhost:8080/?config=~/myconfig.json
+http://localhost:8080/?config=https://domain.com/foo/bar/config.json
 ```
 Please refer to niccokunzmann for the configuration of the json file (the default.json contains most settings already)
 
