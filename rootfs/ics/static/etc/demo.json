@@ -1,0 +1,27 @@
+{
+    "description":"calendar",
+    "template": "dhtmlx.html",
+    "skin": "dhtmlxscheduler_material.css",
+    "loader": "/img/loaders/circular-loader.gif",
+    "target": "_top",
+    "timeshift": 0,
+    "language":"en",
+    "tab": "week",
+    "tabs": [
+      "month",
+      "week",
+      "day",
+      "agenda"
+    ],
+    "controls":[
+        "next",
+        "previous",
+        "today",
+        "date"
+    ],
+    "title": "Default Calendar",
+    "url": [
+      "https://ext.todoist.com/export/ical/project?user_id=3023675&project_id=2289961692&ical_token=b12bc440ffd4ab3d&r_factor=5359"
+    ],
+    "css": ".dhx_cal_event .dhx_header,.dhx_cal_event .dhx_title,.dhx_cal_event .dhx_body,.dhx_cal_event .dhx_footer{background-color: #e8e11e;}"
+}

@@ -21,8 +21,8 @@ from convert_to_ics import ConvertToICS
 
 # configuration
 DEBUG = FALSE
-#logging.getLogger('werkzeug').disabled = True
-#os.environ['WERKZEUG_RUN_MAIN'] = 'true'
+logging.getLogger('werkzeug').disabled = True
+os.environ['WERKZEUG_RUN_MAIN'] = 'true'
 PORT = int(os.environ.get("PORT", "8080"))
 CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("CACHE_REQUESTED_URLS_FOR_SECONDS", 600))
 
@@ -38,7 +38,7 @@ DEFAULT_SPECIFICATION_PATH = os.path.join(HERE, "default.json")
 DHTMLX_LANGUAGES_FILE = os.path.join(STATIC_FOLDER_PATH, "js", "dhtmlx", "locale", "languages.json")
 
 # specification
-PARAM_SPECIFICATION_URL = "config"
+PARAM_SPECIFICATION_URL = "calendar"
 
 # globals
 app = Flask(__name__, template_folder="templates")
@@ -108,6 +108,8 @@ def get_specification(query=None):
     specification = get_default_specification()
     url = query.get(PARAM_SPECIFICATION_URL, None)
     if url:
+        if not "http" in url:
+            url = "http://localhost:{}/etc/{}.json".format(PORT, url)
         url_specification_response = get_text_from_url(url)
         try:
             url_specification_values = json.loads(url_specification_response)

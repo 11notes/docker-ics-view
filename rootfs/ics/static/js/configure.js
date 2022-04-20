@@ -177,6 +177,7 @@ function loadCalendar() {
     */
 
     schedulerUrl = `/calendar.events.json${document.location.search}`;
+    console.log(document.location.search);
         
     scheduler.attachEvent("onLoadError", function(xhr) {
         disableLoader();

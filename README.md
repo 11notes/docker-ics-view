@@ -17,9 +17,11 @@ docker run --name ics-view \
 You need to run this container behind an nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
 
 ## Config
-You can place different configuration json files in /ics/static/etc and use the directly via URL
+You can place different configuration json files in /ics/static/etc and use the directly via URL (you do not need to add .json, just the file name)
 ```shell
-http://localhost:8080/?config=http://localhost:8080/etc/default.json
+http://localhost:8080/?calendar=demo // will use demo.json in /ics/static/etc 
+or
+http://localhost:8080/?calendar=https://domain.com/foo/demo.json
 ```
 Please refer to niccokunzmann for the configuration of the json file (the default.json contains most settings already)
 
@@ -135,18 +137,6 @@ template: "dhtmlx.html"
 
 ## This is set by the dhtmlscheduler when the events are displayed.
 timeshift: 0
-```
-
-## Nginx reverse proxy
-In order to use this container you should run it behind an nginx reverse proxy, here is a simple demo configuration that makes it possible to use the URL https://domain.com/myconfig.cal (you can use the name of the json file without .json replaced by .cal, default.cal, myconfig.cal, ...)
-```shell
-location / {
-        proxy_pass http://IP:8080$request_uri;
-}
-
-location ~* /(.+)\.cal$ {
-        proxy_pass http://localhost:8080/?config=http://localhost:8080/etc/$1.json
-}
 ```
 
 ## Docker -u 1000:1000 (no root initiative)
