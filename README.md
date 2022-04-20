@@ -19,9 +19,7 @@ You need to run this container behind an nginx installation, do not expose this 
 ## Config
 You can place different configuration json files in /ics/static/etc and use the directly via URL
 ```shell
-http://localhost:8080/?config=~/default.json
-http://localhost:8080/?config=~/myconfig.json
-http://localhost:8080/?config=https://domain.com/foo/bar/config.json
+http://localhost:8080/?config=http://localhost:8080/etc/default.json
 ```
 Please refer to niccokunzmann for the configuration of the json file (the default.json contains most settings already)
 
@@ -146,8 +144,8 @@ location / {
         proxy_pass http://IP:8080$request_uri;
 }
 
-location ~* /([a-z0-9]+)\.cal$ {
-        proxy_pass http://IP:8080/?config=~/$1.json;
+location ~* /(.+)\.cal$ {
+        proxy_pass http://localhost:8080/?config=http://localhost:8080/etc/$1.json
 }
 ```
 

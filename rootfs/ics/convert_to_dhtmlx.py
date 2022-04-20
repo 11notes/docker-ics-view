@@ -86,7 +86,7 @@ class ConvertToDhtmlx(ConversionStrategy):
         }
     
     def merge(self):
-        pprint(self.components)
+        #pprint(self.components)
         return jsonify(self.components)
         
     def collect_components_from(self, calendars):
