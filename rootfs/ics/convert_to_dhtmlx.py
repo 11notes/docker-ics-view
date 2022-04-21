@@ -17,10 +17,6 @@ class ConvertToDhtmlx(ConversionStrategy):
 
     def date_to_string(self, date):
         """Convert a date to a string."""
-        # use ISO format
-        # see https://docs.dhtmlx.com/scheduler/howtostart_nodejs.html#step4implementingcrud
-        # see https://docs.python.org/3/library/datetime.html#datetime.datetime.isoformat
-        # see https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
         timezone = datetime.timezone(datetime.timedelta(minutes=-self.timeshift))
         if isinstance(date, datetime.date) and not isinstance(date, datetime.datetime):
             date = datetime.datetime(date.year, date.month, date.day, tzinfo=timezone)
