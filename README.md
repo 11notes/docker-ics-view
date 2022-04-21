@@ -147,7 +147,7 @@ timeshift: 0
 # CSS tricks
 If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can use this NAME in a css selector to colour each *.ics calendar differently
 ```shell
-[event_id^="NAME"] .dhx_header,.dhx_cal_event .dhx_title,.dhx_cal_event .dhx_body,.dhx_cal_event .dhx_footer{background-color: #000000;}
+[event_id^="NAME"] .dhx_header,[event_id^="NAME"] .dhx_title,[event_id^="NAME"] .dhx_body,[event_id^="NAME"] .dhx_footer{background-color: #000000;}
 ```
 
 ## Docker -u 1000:1000 (no root initiative)
