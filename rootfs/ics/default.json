@@ -21,10 +21,10 @@
     ],
     "title": "Default Calendar",
     "url": [
-      "https://www.calendarlabs.com/ical-calendar/ics/41/christian-holidays.ics",
-      "https://www.calendarlabs.com/ical-calendar/ics/52/islam-holidays.ics",
-      "https://www.calendarlabs.com/ical-calendar/ics/55/jewish-holidays.ics",
-      "https://www.calendarlabs.com/ical-calendar/ics/48/hindu-holidays.ics"
+      "https://www.calendarlabs.com/ical-calendar/ics/41/christian-holidays.ics?calendarID=christian",
+      "https://www.calendarlabs.com/ical-calendar/ics/52/islam-holidays.ics?calendarID=islam",
+      "https://www.calendarlabs.com/ical-calendar/ics/55/jewish-holidays.ics?calendarID=jewish",
+      "https://www.calendarlabs.com/ical-calendar/ics/48/hindu-holidays.ics?calendarID=hindu"
     ],
     "css": ".dhx_cal_event .dhx_header,.dhx_cal_event .dhx_title,.dhx_cal_event .dhx_body,.dhx_cal_event .dhx_footer{background-color: #e8e11e;}"
 }

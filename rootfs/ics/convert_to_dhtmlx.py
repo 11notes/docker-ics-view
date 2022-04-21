@@ -29,7 +29,7 @@ class ConvertToDhtmlx(ConversionStrategy):
         date = date.astimezone(datetime.timezone.utc)
         return date.strftime("%Y-%m-%d %H:%M")
 
-    def convert_ical_event(self, calendar_event):
+    def convert_ical_event(self, calendar_event, calendar_name):
         start = calendar_event["DTSTART"].dt
         end = calendar_event.get("DTEND", calendar_event["DTSTART"]).dt
         geo = calendar_event.get("GEO", None)
@@ -55,7 +55,7 @@ class ConvertToDhtmlx(ConversionStrategy):
             "sequence": sequence,
             "recurrence": None,
             "url": calendar_event.get("URL"),
-            "id": (uid, start_date),
+            "id": (calendar_name, uid, start_date),
             "type": "event"
         }
 
@@ -89,7 +89,7 @@ class ConvertToDhtmlx(ConversionStrategy):
         #pprint(self.components)
         return jsonify(self.components)
         
-    def collect_components_from(self, calendars):
+    def collect_components_from(self, calendars, calendar_name):
         today = datetime.datetime.utcnow()
         one_year_ahead = today.replace(year=today.year + 1)
         one_year_before = today.replace(year=today.year - 1)
@@ -97,7 +97,7 @@ class ConvertToDhtmlx(ConversionStrategy):
             events = recurring_ical_events.of(calendar).between(one_year_before, one_year_ahead)
             with self.lock:
                 for event in events:
-                    json_event = self.convert_ical_event(event)
+                    json_event = self.convert_ical_event(event, calendar_name)
                     self.components.append(json_event)
                 
 

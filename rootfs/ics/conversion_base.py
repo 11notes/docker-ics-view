@@ -4,6 +4,8 @@ import requests
 import sys
 import traceback
 import io
+import os
+import re
 from icalendar import Calendar
 
 def get_text_from_url(url):
@@ -14,9 +16,8 @@ def get_text_from_url(url):
 class ConversionStrategy:
     """Base class for conversions."""
 
-    # TODO: add as parameters
-    MAXIMUM_THREADS = 100
-    
+    MAXIMUM_THREADS = int(os.getenv("ICS_MAX_CALENDARS", 5))
+
     def __init__(self, specification, get_text_from_url=get_text_from_url):
         self.specification = specification
         self.lock = RLock()
@@ -37,7 +38,7 @@ class ConversionStrategy:
         urls = self.specification["url"]
         if isinstance(urls, str):
             urls = [urls]
-        assert len(urls) <= self.MAXIMUM_THREADS, "You can only merge {} urls. If you like more, open an issue.".format(MAXIMUM_THREADS)
+        assert len(urls) <= self.MAXIMUM_THREADS, "You can only merge {} urls. If you like more, open an issue.".format(self.MAXIMUM_THREADS)
         with ThreadPoolExecutor(max_workers=self.MAXIMUM_THREADS) as e:
             for e in e.map(self.retrieve_calendar, urls):
                 pass # no error should pass silently; import this
@@ -45,9 +46,14 @@ class ConversionStrategy:
     def retrieve_calendar(self, url):
         """Retrieve a calendar from a url"""
         try:
+            calendar_name = "none"
+            regex = re.compile(r'(?i)calendarID\=(\S+)')
+            rematch = regex.search(url)
+            if rematch:
+                calendar_name = rematch.groups()[0]
             calendar_text = self.get_text_from_url(url)
             calendars = Calendar.from_ical(calendar_text, multiple=True)
-            self.collect_components_from(calendars)
+            self.collect_components_from(calendars, calendar_name)
         except:
             ty, err, tb = sys.exc_info()
             with self.lock:

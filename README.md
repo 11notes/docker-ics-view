@@ -13,8 +13,13 @@ docker run --name ics-view \
     -d 11notes/ics-view:[tag]
 ```
 
+## Variables
+* ICS_PORT - Purpose: TCP port / Default: 8080
+* ICS_DEBUG - Purpose: Enable or disable debug mode / Default: False
+* ICS_MAX_CALENDARS - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
+
 ## Warning
-You need to run this container behind an nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
+You need to run this container behind a nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
 
 ## Config
 You can place different configuration json files in /ics/static/etc and use the directly via URL (you do not need to add .json, just the file name)
@@ -137,6 +142,12 @@ template: "dhtmlx.html"
 
 ## This is set by the dhtmlscheduler when the events are displayed.
 timeshift: 0
+```
+
+# CSS tricks
+If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can use this NAME in a css selector to colour each *.ics calendar differently
+```shell
+[event_id^="NAME"] .dhx_header,.dhx_cal_event .dhx_title,.dhx_cal_event .dhx_body,.dhx_cal_event .dhx_footer{background-color: #000000;}
 ```
 
 ## Docker -u 1000:1000 (no root initiative)

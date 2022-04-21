@@ -20,10 +20,11 @@ from convert_to_dhtmlx import ConvertToDhtmlx
 from convert_to_ics import ConvertToICS
 
 # configuration
-DEBUG = FALSE
-logging.getLogger('werkzeug').disabled = True
-os.environ['WERKZEUG_RUN_MAIN'] = 'true'
-PORT = int(os.environ.get("PORT", "8080"))
+PORT = int(os.environ.get("ICS_PORT", "8080"))
+DEBUG = bool(os.environ.get("ICS_DEBUG", "false"))
+if not DEBUG:
+    logging.getLogger('werkzeug').disabled = True
+    os.environ['WERKZEUG_RUN_MAIN'] = 'true'
 CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("CACHE_REQUESTED_URLS_FOR_SECONDS", 600))
 
 # constants
