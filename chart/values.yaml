@@ -1,0 +1,194 @@
+# Default values for docker-ics-view.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 11notes/ics-view
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config:
+  ## Specification
+  ##
+  ## The specification of the calendar can be written in YAML and JSON.
+  ## You can copy and paste the specification and adapt it to your needs.
+  ##
+  ## Lines with two ## are comments and lines with one # are code which
+  ## is not in use.
+  ##
+
+  ## url can be a single link to an ics file or a list.
+  #url: https://your.link.to/a-file.ics
+  url:
+  - "https://www.calendarlabs.com/ical-calendar/ics/46/Germany_Holidays.ics"
+  #- https://www.calendarlabs.com/ical-calendar/ics/46/Germany_Holidays.ics
+  #- https://www.calendarlabs.com/ical-calendar/ics/46/Germany_Holidays.ics
+
+  ## The title is displayed as the title of the html page.
+  title: "Open Web Calendar"
+
+  ## The language of the calendar. You can choose from these languages:
+  ## Arabic: "ar"
+  ## Belarusian: "be"
+  ## Catalan: "ca"
+  ## Chinese: "cn"
+  ## Czech: "cs"
+  ## Danish: "da"
+  ## Dutch: "nl"
+  ## English: "en"
+  ## Finnish: "fi"
+  ## French: "fr"
+  ## German: "de"
+  ## Greek: "el"
+  ## Hebrew: "he"
+  ## Hungarian: "hu"
+  ## Indonesian: "id"
+  ## Italian: "it"
+  ## Japanese: "jp"
+  ## Norwegian: "no"
+  ## Norwegian Bokmål: "nb"
+  ## Polish: "pl"
+  ## Portuguese: "pt"
+  ## Romanian: "ro"
+  ## Russian: "ru"
+  ## Slovak: "sk"
+  ## Slovenian: "si"
+  ## Spanish: "es"
+  ## Swedish: "sv"
+  ## Turkish: "tr"
+  ## Ukrainian: "ua"
+  language: "en"
+
+  ## The skin changes the look of the calendar.
+  ## They are located in the static/css/dhtmlx folder.
+  ## You can choose one of these:
+  #skin: "dhtmlxscheduler_contrast_black.css"
+  #skin: "dhtmlxscheduler_terrace.css"
+  #skin: "dhtmlxscheduler_contrast_white.css"
+  #skin: "dhtmlxscheduler_flat.css"
+  skin: "dhtmlxscheduler_material.css"
+
+  ## You can embed custom css code, i.e. to change the background or font.
+  css: ""
+
+  ## The target is the place where links are opened.
+  ## "_top" opens the link where the website is embedded.
+  ## "_blank" opens the link in a new tab.
+  ## "_self" replaces the calendar with the link content.
+  ## "_parent" opens the link in on the page where the calendar is embedded.
+  target: "_top"
+
+  ## This is the url to a loader animation which is displayed while the
+  ## calendar loads events.
+  loader: "/img/loaders/circular-loader.gif"
+
+  ## Choose which tab to display when the calendar opens.
+  tab: "month"
+  #tab: "week"
+  #tab: "day"
+  #tab: "agenda"
+
+  ## Choose which tabs can be chosen by the user.
+  tabs:
+  - "month"
+  - "week"
+  - "day"
+  #- agenda
+
+  ## Users can control the calendar.
+  ## You can hide these buttons:
+  controls:
+  ## Users can go to the next day/week/month.
+  - "next"
+  ## Users can go to the previous day/week/month.
+  - "previous"
+  ## Users can go to the current day/week/month.
+  - "today"
+  ## Users can see the date.
+  - "date"
+
+  ## You can describe the calendar with a text so people know what it is about.
+  description: "This is a calendar which provides a website and an ICS subscription link based on the different calendars it is configured to use."
+
+  ###################### You will probably not change this. ######################
+  ##
+  ## The template is the file which shows the calendar.
+  ## It is located in the templates/calendars folder.
+  template: "dhtmlx.html"
+
+  ## This is set by the dhtmlscheduler when the events are displayed.
+  timeshift: 0
