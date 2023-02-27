@@ -149,7 +149,7 @@ If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can
 ```
 
 ## Docker -u 1000:1000 (no root initiative)
-As part to make containers more secure, this container will not run as root, but as uid:gid 1000:1000. Therefore the default TCP port is 8080.
+As part to make containers more secure, this container will not run as root, but as uid:gid 1000:1000. Therefore the default TCP port is 5000.
 
 ## Build with
 * [open-web-calendar](https://github.com/niccokunzmann/open-web-calendar) - Flask to use *.ics feeds
