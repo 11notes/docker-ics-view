@@ -17,14 +17,14 @@ docker run --name ics-view \
 * MAX_ICS_EXTERNAL - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
 
 ## Warning
-You need to run this container behind a nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
+You need to run this container behind a nginx server to terminate TLS/SSL. Do not expose this container by any means to the world wide web without using a proxy for access control, ingress limits, and so on!
 
 ## Config
 You can place different configuration json files in /ics/etc and use the directly via URL (you do not need to add .json, just the file name)
 ```shell
-http://localhost:8080/?calendar=demo // will use demo.json in /ics/etc
+http://localhost:5000/?calendar=demo // will use demo.json in /ics/etc
 or
-http://localhost:8080/?calendar=https://domain.com/foo/demo.json
+http://localhost:5000/?calendar=https://domain.com/foo/demo.json
 ```
 Please refer to niccokunzmann for the configuration of the json file (the default.json contains most settings already)
 
