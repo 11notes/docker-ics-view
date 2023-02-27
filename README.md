@@ -14,17 +14,15 @@ docker run --name ics-view \
 ```
 
 ## Variables
-* ICS_PORT - Purpose: TCP port / Default: 8080
-* ICS_DEBUG - Purpose: Enable or disable debug mode / Default: False
-* ICS_MAX_CALENDARS - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
+* MAX_ICS - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
 
 ## Warning
 You need to run this container behind a nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
 
 ## Config
-You can place different configuration json files in /ics/static/etc and use the directly via URL (you do not need to add .json, just the file name)
+You can place different configuration json files in /ics/etc and use the directly via URL (you do not need to add .json, just the file name)
 ```shell
-http://localhost:8080/?calendar=demo // will use demo.json in /ics/static/etc 
+http://localhost:8080/?calendar=demo // will use demo.json in /ics/etc
 or
 http://localhost:8080/?calendar=https://domain.com/foo/demo.json
 ```
@@ -147,7 +145,7 @@ timeshift: 0
 # CSS tricks
 If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can use this NAME in a css selector to colour each *.ics calendar differently
 ```shell
-[event_id^="NAME"] .dhx_header,[event_id^="NAME"] .dhx_title,[event_id^="NAME"] .dhx_body,[event_id^="NAME"] .dhx_footer{background-color: #000000;}
+[event_id^="christian"],[event_id^="christian"] div {background-color: #FF0000 !important;color: #FFFFFF !important;}
 ```
 
 ## Docker -u 1000:1000 (no root initiative)

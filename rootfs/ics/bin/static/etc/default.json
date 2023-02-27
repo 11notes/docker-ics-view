@@ -1,0 +1,30 @@
+{
+    "description":"calendar",
+    "template": "dhtmlx.html",
+    "skin": "dhtmlxscheduler_material.css",
+    "loader": "/img/loaders/circular-loader.gif",
+    "target": "_top",
+    "timeshift": 0,
+    "language":"en",
+    "tab": "week",
+    "tabs": [
+      "month",
+      "week",
+      "day",
+      "agenda"
+    ],
+    "controls":[
+        "next",
+        "previous",
+        "today",
+        "date"
+    ],
+    "title": "Default Calendar",
+    "url": [
+      "https://www.calendarlabs.com/ical-calendar/ics/41/christian-holidays.ics?calendarID=christian",
+      "https://www.calendarlabs.com/ical-calendar/ics/52/islam-holidays.ics?calendarID=islam",
+      "https://www.calendarlabs.com/ical-calendar/ics/55/jewish-holidays.ics?calendarID=jewish",
+      "https://www.calendarlabs.com/ical-calendar/ics/48/hindu-holidays.ics?calendarID=hindu"
+    ],
+    "css": "[event_id^=\"christian\"],[event_id^=\"christian\"] div {background-color: #FF0000 !important;color: #FFFFFF !important;}"
+}
