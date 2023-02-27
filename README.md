@@ -4,17 +4,17 @@ View *.ics feeds from your favorite sources directly online on a simple web UI.
 ![Calendar View](screenshots/default.json.png?raw=true "Calendar View (default.json)")
 
 ## Volumes
-* /ics/static/etc - Purpose: Configuration files for different calendar views
+* /ics/etc - Purpose: Configuration files for different calendar views
 
 ## Run
 ```shell
 docker run --name ics-view \
-    -v volume-etc:/ics/static/etc \
+    -v volume-etc:/ics/etc \
     -d 11notes/ics-view:[tag]
 ```
 
 ## Variables
-* MAX_ICS - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
+* MAX_ICS_EXTERNAL - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
 
 ## Warning
 You need to run this container behind a nginx installation, do not expose this container directly to the web because it is not encrypted nor safe to use that was!
