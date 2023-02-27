@@ -4,7 +4,7 @@ View *.ics feeds from your favorite sources directly online on a simple web UI.
 ![Calendar View](screenshots/default.json.png?raw=true "Calendar View (default.json)")
 
 ## Volumes
-* /ics/etc - Purpose: Configuration files for different calendar views
+* **/ics/etc** - Configuration files for different calendar views
 
 ## Run
 ```shell
@@ -14,12 +14,12 @@ docker run --name ics-view \
 ```
 
 ## Environment Variables
-* ICS_IP (default: 0.0.0.0) - Purpose: IP of the webserver
-* ICS_PORT (default: 5000) - Purpose: TCP port of the webserver
-* ICS_MAX_PER_VIEW (default: 5) - Purpose: How many calendars (*.ics feeds) are allowed to be loaded at once
-* ICS_WORKERS (default: 4) - Purpose: How many workers should be started to handle requests
-* ICS_CACHE_LIFETIME (default: 60) - Purpose: How long *.ics feed are cached between requests
-* ICS_DEBUG (default: false) - Purpose: Enable debug mode
+* **ICS_IP** (*default: 0.0.0.0*) - IP of the webserver
+* **ICS_PORT** (*default: 5000*) - TCP port of the webserver
+* **ICS_MAX_PER_VIEW** (*default: 5*) - How many calendars (*.ics feeds) are allowed to be loaded at once
+* **ICS_WORKERS** (*default: 4*) - How many workers should be started to handle requests
+* **ICS_CACHE_LIFETIME** (*default: 60*) - How long *.ics feed are cached between requests
+* **ICS_DEBUG** (*default: false*) - Enable debug mode
 
 ## Warning
 You need to run this container behind a nginx server to terminate TLS/SSL. Do not expose this container by any means to the world wide web without using a proxy for access control, ingress limits, and so on!
