@@ -16,7 +16,7 @@ def get_text_from_url(url):
 class ConversionStrategy:
     """Base class for conversions."""
 
-    MAXIMUM_THREADS = int(os.getenv("MAX_ICS_EXTERNAL", 5))
+    MAXIMUM_THREADS = int(os.getenv("ICS_MAX_PER_VIEW", 5))
 
     def __init__(self, specification, get_text_from_url=get_text_from_url):
         self.specification = specification

@@ -18,9 +18,9 @@ from convert_to_dhtmlx import ConvertToDhtmlx
 from convert_to_ics import ConvertToICS
 
 # configuration
-DEBUG = os.environ.get("APP_DEBUG", "true").lower() == "true"
-PORT = int(os.environ.get("PORT", "5000"))
-CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("CACHE_REQUESTED_URLS_FOR_SECONDS", 600))
+DEBUG = os.environ.get("ICS_DEBUG", "false").lower() == "false"
+PORT = int(os.environ.get("ICS_PORT", "5000"))
+CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("ICS_CACHE_LIFETIME", 60))
 
 # constants
 HERE = os.path.dirname(__file__) or "."
@@ -63,8 +63,7 @@ def cache_url(url, text):
 @app.after_request
 def add_header(r):
     """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
+    Add headers to both force latest IE rendering engine or Chrome Frame
     """
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"

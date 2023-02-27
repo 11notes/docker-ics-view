@@ -13,8 +13,13 @@ docker run --name ics-view \
     -d 11notes/ics-view:[tag]
 ```
 
-## Variables
-* MAX_ICS_EXTERNAL - Purpose: How many calendars (*.ics feeds) are allowed to be loaded (spam attack) / Default: 5
+## Environment Variables
+* ICS_IP (default: 0.0.0.0) - Purpose: IP of the webserver
+* ICS_PORT (default: 5000) - Purpose: TCP port of the webserver
+* ICS_MAX_PER_VIEW (default: 5) - Purpose: How many calendars (*.ics feeds) are allowed to be loaded at once
+* ICS_WORKERS (default: 4) - Purpose: How many workers should be started to handle requests
+* ICS_CACHE_LIFETIME (default: 60) - Purpose: How long *.ics feed are cached between requests
+* ICS_DEBUG (default: false) - Purpose: Enable debug mode
 
 ## Warning
 You need to run this container behind a nginx server to terminate TLS/SSL. Do not expose this container by any means to the world wide web without using a proxy for access control, ingress limits, and so on!

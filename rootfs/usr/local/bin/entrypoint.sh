@@ -1,9 +1,13 @@
 #!/bin/ash
-  if [ -z "$1" ]; then
+  if [ -z "${ICS_IP}" ]; then ICS_IP=0.0.0.0; fi
+  if [ -z "${ICS_PORT}" ]; then ICS_PORT=5000; fi
+  if [ -z "${ICS_WORKERS}" ]; then ICS_WORKERS=4; fi
+
+  if [ -z "${1}" ]; then
     cd /ics/bin
     set -- "gunicorn" \
-      -w 4 \
-      -b 0.0.0.0:5000 \
+      -w ${ICS_WORKERS} \
+      -b ${ICS_IP}:${ICS_PORT} \
       app:app
   fi
 
