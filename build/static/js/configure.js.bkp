@@ -135,14 +135,9 @@ function loadCalendar() {
   var format = scheduler.date.date_to_str("%H:%i");
   setLocale(scheduler);
   // load plugins, see https://docs.dhtmlx.com/scheduler/migration_from_older_version.html#5360
-  scheduler.plugins({
-      agenda_view: true,
-      multisource: true,
-      quick_info: true,
-      recurring: false,
-      tooltip: true,
-      readonly: true,
-  });
+  // START CHANGE by https://github.com/11notes
+  scheduler.plugins({$ICS_VIEW_DHTMLX_PLUGINS});
+  // END CHANGE by https://github.com/11notes
   // set format of dates in the data source
   scheduler.config.xml_date="%Y-%m-%d %H:%i";
   // use UTC, see https://docs.dhtmlx.com/scheduler/api__scheduler_server_utc_config.html

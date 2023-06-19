@@ -28,6 +28,8 @@ docker run --name ics-view \
 | `ICS_MAX_PER_VIEW` | How many calendars (*.ics feeds) are allowed to be loaded at once | 5 |
 | `ICS_WORKERS` | How many workers should be started to handle requests | 4 |
 | `ICS_CACHE_LIFETIME` | How long *.ics feed are cached between requests in seconds | 60 |
+| `ICS_VIEW_DHTMLX_ENABLE_PLUGINS` | Enabled DHTMLX plugins | "agenda_view multisource quick_info tooltip readonly" |
+| `ICS_VIEW_DHTMLX_DISABLE_PLUGINS` | Disabled DHTMLX plugins | "" |
 | `ICS_DEBUG` | Enable debug mode | false |
 
 ## Configuration
@@ -35,6 +37,18 @@ You can place different configuration json files in /ics/etc and use the directl
 ```shell
 http://localhost:5000/?calendar=demo // will use demo.json in /ics/etc
 http://localhost:5000/?calendar=https://domain.com/foo/demo.json
+```
+
+## DHTMLX Plugins
+You can find a list of all available plugins [here](https://docs.dhtmlx.com/scheduler/extensions_list.html).
+To use additional plugins simply add them to the desired environment variable. The example will add the plugin all_timed and year_view and remove the plugin recurring from being used.
+
+```shell
+docker run --name ics-view \
+  -v .../etc:/ics/etc \
+  -e ICS_VIEW_DHTMLX_ENABLE_PLUGINS="agenda_view multisource quick_info tooltip readonly all_timed year_view" \
+  -e ICS_VIEW_DHTMLX_DISABLE_PLUGINS="recurring" \
+  -d 11notes/ics-view:[tag]
 ```
 
 # CSS tricks
