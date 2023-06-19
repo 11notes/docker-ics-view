@@ -34,15 +34,14 @@ docker run --name ics-view \
 You can place different configuration json files in /ics/etc and use the directly via URL (you do not need to add .json, just the file name)
 ```shell
 http://localhost:5000/?calendar=demo // will use demo.json in /ics/etc
-or
 http://localhost:5000/?calendar=https://domain.com/foo/demo.json
 ```
 
-
 # CSS tricks
 If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can use this NAME in a css selector to colour each *.ics calendar differently
-```shell
-[event_id^="christian"],[event_id^="christian"] div {background-color: #FF0000 !important;color: #FFFFFF !important;}
+```css
+[event_id^="christian"],
+[event_id^="christian"] div {background-color:#FF0000 !important; color:#FFFFFF !important;}
 ```
 
 ## Parent
