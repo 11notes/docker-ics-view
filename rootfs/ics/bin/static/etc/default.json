@@ -1,30 +1,39 @@
 {
-  "description": "calendar",
+  "title": "default.json calendar",
+  "description": "",
+  "date":"",
+  "starting_hour": 6,
+  "ending_hour": 20,
+  "hour_division": 1,
+  "timeshift": 0,
+  "start_of_week": "mo",
+  "timezone": "",
   "template": "dhtmlx.html",
   "skin": "dhtmlxscheduler_material.css",
-  "loader": "/img/loaders/circular-loader.gif",
-  "target": "_top",
-  "timeshift": 0,
   "language": "en",
-  "tab": "week",
-  "tabs": [
-    "month",
-    "week",
-    "day",
-    "agenda"
-  ],
+  "target": "_top",
+  "loader": "/img/loaders/circular-loader.gif",
   "controls": [
     "next",
     "previous",
     "today",
     "date"
   ],
-  "title": "Default Calendar",
+  "tabs": [
+    "month",
+    "week",
+    "day",
+    "agenda"
+  ],
+  "tab":"week",
   "url": [
     "https://www.calendarlabs.com/ical-calendar/ics/41/christian-holidays.ics?calendarID=christian",
     "https://www.calendarlabs.com/ical-calendar/ics/52/islam-holidays.ics?calendarID=islam",
     "https://www.calendarlabs.com/ical-calendar/ics/55/jewish-holidays.ics?calendarID=jewish",
     "https://www.calendarlabs.com/ical-calendar/ics/48/hindu-holidays.ics?calendarID=hindu"
   ],
-  "css": "[event_id^=\"christian\"],[event_id^=\"christian\"] div {background-color: #e28743 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"islam\"],[event_id^=\"islam\"] div {background-color: #2596be !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"jewish\"],[event_id^=\"jewish\"] div {background-color: #49be25 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"hindu\"],[event_id^=\"hindu\"] div {background-color: #bea925 !important;color: #FFFFFF !important;}"
+  "css": "[event_id^=\"christian\"],[event_id^=\"christian\"] div {background-color: #e28743 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"islam\"],[event_id^=\"islam\"] div {background-color: #2596be !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"jewish\"],[event_id^=\"jewish\"] div {background-color: #49be25 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"hindu\"],[event_id^=\"hindu\"] div {background-color: #bea925 !important;color: #FFFFFF !important;}",
+  "source_code": "https://github.com/niccokunzmann/open-web-calendar/",
+  "contributing": "https://github.com/niccokunzmann/open-web-calendar/#contributing",
+  "translate": "https://hosted.weblate.org/engage/open-web-calendar/"
 }

@@ -1,0 +1,32 @@
+{
+  "title": "demo.json calendar",
+  "description": "",
+  "date":"",
+  "starting_hour": 12,
+  "ending_hour": 20,
+  "hour_division": 1,
+  "timeshift": 0,
+  "start_of_week": "su",
+  "timezone": "",
+  "template": "dhtmlx.html",
+  "skin": "dhtmlxscheduler_material.css",
+  "language": "en",
+  "target": "_top",
+  "loader": "/img/loaders/circular-loader.gif",
+  "controls": [
+    "next",
+    "previous",
+    "today",
+    "date"
+  ],
+  "tabs": [
+    "month",
+    "week",
+    "day",
+    "agenda"
+  ],
+  "tab":"month",
+  "url": [
+    "https://www.calendarlabs.com/ical-calendar/ics/577/NYSE_Market_Holidays.ics"
+  ]
+}

@@ -16,17 +16,20 @@ import io
 import sys
 from convert_to_dhtmlx import ConvertToDhtmlx
 from convert_to_ics import ConvertToICS
+import pytz
+import translate
+import logging
 
 # configuration
-DEBUG = os.environ.get("ICS_DEBUG", "false").lower() == "false"
-PORT = int(os.environ.get("ICS_PORT", "5000"))
-CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("ICS_CACHE_LIFETIME", 60))
+DEBUG = os.environ.get("APP_DEBUG", "true").lower() == "true"
+PORT = int(os.environ.get("PORT", "5000"))
+CACHE_REQUESTED_URLS_FOR_SECONDS = int(os.environ.get("CACHE_REQUESTED_URLS_FOR_SECONDS", 600))
 
 # constants
 HERE = os.path.dirname(__file__) or "."
-# CHANGE by 11notes
+# START CHANGE by https://github.com/11notes
 DEFAULT_SPECIFICATION_PATH = os.path.join(HERE, "static", "etc", "default.json")
-# CHANGE by 11notes
+# END CHANGE by https://github.com/11notes
 TEMPLATE_FOLDER_NAME = "templates"
 TEMPLATE_FOLDER = os.path.join(HERE, TEMPLATE_FOLDER_NAME)
 CALENDARS_TEMPLATE_FOLDER_NAME = "calendars"
@@ -36,9 +39,9 @@ STATIC_FOLDER_PATH = os.path.join(HERE, STATIC_FOLDER_NAME)
 DHTMLX_LANGUAGES_FILE = os.path.join(STATIC_FOLDER_PATH, "js", "dhtmlx", "locale", "languages.json")
 
 # specification
-# CHANGE by 11notes
+# START CHANGE by https://github.com/11notes
 PARAM_SPECIFICATION_URL = "calendar"
-# CHANGE by 11notes
+# END CHANGE by https://github.com/11notes
 
 # globals
 app = Flask(__name__, template_folder="templates")
@@ -63,7 +66,8 @@ def cache_url(url, text):
 @app.after_request
 def add_header(r):
     """
-    Add headers to both force latest IE rendering engine or Chrome Frame
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
     """
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"
@@ -75,16 +79,19 @@ def add_header(r):
 def get_configuration():
     """Return the configuration for the browser"""
     config = {
-        "default_specification": get_default_specification()
-    }
-    with open(DHTMLX_LANGUAGES_FILE, encoding="UTF-8") as file:
-        config["dhtmlx"] = {
-            "languages" : json.load(file)
+        "default_specification": get_default_specification(), 
+        "timezones": pytz.all_timezones, # see https://stackoverflow.com/a/13867319
+        "dhtmlx": {
+            "languages": translate.dhtmlx_languages()
+        },
+        "index": {
+            "languages": translate.languages_for_the_index_file()
         }
+    }
     return config
 
 def set_JS_headers(response):
-    repsonse = make_response(response)
+    response = make_response(response)
     response.headers['Access-Control-Allow-Origin'] = '*'
     # see https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSMissingAllowHeaderFromPreflight
     response.headers['Access-Control-Allow-Headers'] = request.headers.get("Access-Control-Request-Headers")
@@ -105,9 +112,11 @@ def get_text_from_url(url):
 
     The result is cached CACHE_REQUESTED_URLS_FOR_SECONDS.
     """
+    
     if __URL_CACHE:
+        logging.warning(' %s served from cache', url)
         return __URL_CACHE[url]
-    return requests.get(url).text
+    return requests.get(url).content
 
 def get_default_specification():
     """Return the default specification."""
@@ -122,8 +131,11 @@ def get_specification(query=None):
     # get a request parameter, see https://stackoverflow.com/a/11774434
     url = query.get(PARAM_SPECIFICATION_URL, None)
     if url:
+        # START CHANGE by https://github.com/11notes
+        logging.warning('%s', url)
         if not "http" in url:
             url = "http://localhost:{}/etc/{}.json".format(PORT, url)
+        # END CHANGE by https://github.com/11notes
         url_specification_response = get_text_from_url(url)
         try:
             url_specification_values = json.loads(url_specification_response)
@@ -144,20 +156,14 @@ def get_query_string():
     return "?" + request.query_string.decode()
 
 def render_app_template(template, specification):
+    translation_file = os.path.splitext(template)[0]
     return render_template(template,
         specification=specification,
+        configuration = get_configuration(),
         json=json,
-        get_query_string=get_query_string
+        get_query_string=get_query_string,
+        html=lambda id: translate.html(specification["language"], translation_file, id)
     )
-
-@app.route("/", methods=['GET', 'OPTIONS'])
-def serve_index():
-    specification = get_specification()
-    template_name = specification["template"]
-    all_template_names = os.listdir(CALENDAR_TEMPLATE_FOLDER)
-    assert template_name in all_template_names, "Template names must be file names like \"{}\", not \"{}\".".format("\", \"".join(all_template_names), template_name)
-    template = CALENDARS_TEMPLATE_FOLDER_NAME + "/" + template_name
-    return render_app_template(template, specification)
 
 @app.route("/calendar.<type>", methods=['GET', 'OPTIONS'])
 # use query string in cache, see https://stackoverflow.com/a/47181782/1320237
@@ -170,7 +176,7 @@ def get_calendar(type):
     if type == "events.json":
         strategy = ConvertToDhtmlx(specification, get_text_from_url)
         strategy.retrieve_calendars()
-        return strategy.merge()    
+        return strategy.merge()     
     if type == "ics":
         strategy = ConvertToICS(specification, get_text_from_url)
         strategy.retrieve_calendars()
@@ -191,18 +197,28 @@ for folder_name in os.listdir(STATIC_FOLDER_PATH):
     def send_static(path, folder_name=folder_name):
         return send_from_directory('static/' + folder_name, path)
 
-@app.route("/about.html")
-def serve_about():
+# START CHANGE by https://github.com/11notes
+@app.route("/")
+def serve_index():
     specification = get_specification()
-    return render_app_template("about.html", specification)
+    template_name = specification["template"]
+    all_template_names = os.listdir(CALENDAR_TEMPLATE_FOLDER)
+    assert template_name in all_template_names, "Template names must be file names like \"{}\", not \"{}\".".format("\", \"".join(all_template_names), template_name)
+    template = CALENDARS_TEMPLATE_FOLDER_NAME + "/" + template_name
+    return render_app_template(template, specification)
+
+@app.route("/favicon.ico")
+def serve_favicon():
+    return send_from_directory("static", "favicon.ico")
+# END CHANGE by https://github.com/11notes
 
 @app.route("/configuration.js")
 def serve_configuration():
     return "/* generated */\nconst configuration = {};".format(json.dumps(get_configuration()))
 
-@app.route("/favicon.ico")
-def serve_favicon():
-    return send_from_directory("static", "favicon.ico")
+@app.route("/locale_<lang>.js")
+def serve_locale(lang):
+    return render_template("locale.js", locale=json.dumps(translate.dhtmlx(lang), indent="  "))
 
 @app.errorhandler(500)
 def unhandledException(error):
