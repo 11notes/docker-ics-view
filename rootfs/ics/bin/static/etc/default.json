@@ -9,6 +9,7 @@
   "start_of_week": "mo",
   "timezone": "",
   "template": "dhtmlx.html",
+  
   "skin": "dhtmlxscheduler_material.css",
   "language": "en",
   "target": "_top",
@@ -32,8 +33,5 @@
     "https://www.calendarlabs.com/ical-calendar/ics/55/jewish-holidays.ics?calendarID=jewish",
     "https://www.calendarlabs.com/ical-calendar/ics/48/hindu-holidays.ics?calendarID=hindu"
   ],
-  "css": "[event_id^=\"christian\"],[event_id^=\"christian\"] div {background-color: #e28743 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"islam\"],[event_id^=\"islam\"] div {background-color: #2596be !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"jewish\"],[event_id^=\"jewish\"] div {background-color: #49be25 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"hindu\"],[event_id^=\"hindu\"] div {background-color: #bea925 !important;color: #FFFFFF !important;}",
-  "source_code": "https://github.com/niccokunzmann/open-web-calendar/",
-  "contributing": "https://github.com/niccokunzmann/open-web-calendar/#contributing",
-  "translate": "https://hosted.weblate.org/engage/open-web-calendar/"
+  "css": "[event_id^=\"christian\"],[event_id^=\"christian\"] div {background-color: #e28743 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"islam\"],[event_id^=\"islam\"] div {background-color: #2596be !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"jewish\"],[event_id^=\"jewish\"] div {background-color: #49be25 !important;color: #FFFFFF !important;}\n\t\t\t[event_id^=\"hindu\"],[event_id^=\"hindu\"] div {background-color: #bea925 !important;color: #FFFFFF !important;}"
 }

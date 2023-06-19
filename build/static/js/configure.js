@@ -219,7 +219,6 @@ return html;
   if (specification.timezone == "") {
       schedulerUrl += "&timezone=" + getTimezone();
   }
-  console.log(schedulerUrl);
   // END CHANGE by https://github.com/11notes
       
   scheduler.attachEvent("onLoadError", function(xhr) {
