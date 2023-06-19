@@ -2,11 +2,11 @@
   "title": "demo.json calendar",
   "description": "",
   "date":"",
-  "starting_hour": 0,
-  "ending_hour": 24,
+  "starting_hour": 12,
+  "ending_hour": 20,
   "hour_division": 1,
   "timeshift": 0,
-  "start_of_week": "mo",
+  "start_of_week": "su",
   "timezone": "",
   "template": "dhtmlx.html",
   "skin": "dhtmlxscheduler_material.css",
@@ -27,6 +27,6 @@
   ],
   "tab":"month",
   "url": [
-    "https://mail.eleven.cloud/owa/calendar/3553aeadda924b3dad5db7962c8f8ebe@dale.cloud/17e322463c1142d3834eecf239e909a912896714739263071366/calendar.ics"
+    "https://www.calendarlabs.com/ical-calendar/ics/577/NYSE_Market_Holidays.ics"
   ]
 }
