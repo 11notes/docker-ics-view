@@ -1,5 +1,5 @@
-# Alpine :: ics-View
-Run an ics calendar webview based on Alpine Linux. Small, lightweight, secure and fast 🏔️
+# Alpine :: ics-view
+Run open-web-calendar (web view for ics) based on Alpine Linux. Small, lightweight, secure and fast 🏔️
 
 ![Calendar View](screenshots/default.json.png?raw=true "Calendar View (default.json)")
 
