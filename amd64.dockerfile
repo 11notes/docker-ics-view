@@ -47,6 +47,14 @@
   # :: install application
     RUN set -ex; \
       cd ${APP_ROOT}/bin; \
+      # fix security
+      # https://nvd.nist.gov/vuln/detail/CVE-2023-25577⁠
+      # https://nvd.nist.gov/vuln/detail/CVE-2023-23934⁠
+      # https://nvd.nist.gov/vuln/detail/CVE-2023-30861⁠
+      # https://nvd.nist.gov/vuln/detail/CVE-2023-32681⁠
+      rm requirements.txt; \
+      pip install --upgrade pip-tools -r requirements.in; \
+      pip-compile -o requirements.txt requirements.in; \
       pip install --upgrade --no-cache-dir -r requirements.txt;
 
   # :: copy root filesystem changes and add execution rights to init scripts

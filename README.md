@@ -54,6 +54,5 @@ If you add ?calendarID=NAME at the end of the URL of your *.ics calendar you can
 * [Alpine Linux](https://alpinelinux.org)
 
 ## Tips
-* You can find some [examples](examples) of special backend configurations
 * Don't bind to ports < 1024 (requires root), use NAT/reverse proxy
 * [Permanent Stroage](https://github.com/11notes/alpine-docker-netshare) - Module to store permanent container data via NFS/CIFS and more

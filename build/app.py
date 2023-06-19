@@ -18,7 +18,6 @@ from convert_to_dhtmlx import ConvertToDhtmlx
 from convert_to_ics import ConvertToICS
 import pytz
 import translate
-import logging
 
 # configuration
 DEBUG = os.environ.get("APP_DEBUG", "true").lower() == "true"
@@ -114,7 +113,6 @@ def get_text_from_url(url):
     """
     
     if __URL_CACHE:
-        logging.warning(' %s served from cache', url)
         return __URL_CACHE[url]
     return requests.get(url).content
 
@@ -132,7 +130,6 @@ def get_specification(query=None):
     url = query.get(PARAM_SPECIFICATION_URL, None)
     if url:
         # START CHANGE by https://github.com/11notes
-        logging.warning('%s', url)
         if not "http" in url:
             url = "http://localhost:{}/etc/{}.json".format(PORT, url)
         # END CHANGE by https://github.com/11notes
